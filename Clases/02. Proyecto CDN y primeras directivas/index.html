@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Clase 02</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" id="app">
+        <h1>{{bienvenida}}</h1>
+        <!--card-->
+        <div class="card" style="width: 18rem;">
+            <img v-bind:src="carta.imagen"  class="card-img-top" alt="..." width="300">
+            <!-- <img :src="carta.imagen"  class="card-img-top" alt="..." width="300"> -->
+            <div class="card-body">
+                <h5 class="card-title">{{carta.titulo}}</h5>
+                <p class="card-text">{{carta.descripcion}}</p>
+                <a href="#" class="btn btn-primary" @click="mostrarPrecio()">{{carta.boton}}</a>
+                <!-- <a href="#" class="btn btn-success" v-on:click="otraFuncion(5)">{{carta.boton}}</a> -->
+            </div>
+        </div>
+        <!-- Precio con IVA-->
+        <p>Precio del producto con IVA: $ {{calcularIva()}}</p>
+        <!-- campo nombre-->
+        <label for="nombre">
+            Ingresa tu nombre
+            <input type="text" name="nombre" v-model="nombre">
+        </label>
+        <!-- inyectamos la propiedad computada-->
+        <p>Nombre {{mostrarNombre}}</p>
+        <!-- inyectamos el metdo que hace lo mismo que computada-->
+        <p>Nombre {{mostrarNombre2()}}</p>
+        <!-- Numeros -->
+        <p>Numero: {{numero}}</p>
+        <button @click="cambiarNumero()">Cambiar nro</button>
+    </div>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- Codigo fuente -->
+    <script>
+        /**
+         * v-model -> bidireccional
+         * v-bind -> unidireccional
+         * @click es un alias de v-on:click
+         * :src es una alias de v-bind:src
+        */
+        let app = new Vue({
+            el : '#app',
+            data:{
+                bienvenida:"Bienvenido a Vue 2!",
+                carta:{
+                    imagen:"https://media.traveler.es/photos/613769c3cb06ad0f20e122bb/1:1/w_1325,h_1325,c_limit/150040.jpg",
+                    titulo:"Patingui",
+                    descripcion:"Tierno patito colosal con demasiado flow para este mundo",
+                    boton:"Comprar patito",
+                    precio: 2990.00
+                },
+                precioIva: 0,
+                nombre: "",
+                numero:244
+            },
+            methods:{
+                mostrarPrecio(){
+                    alert(`Este ${this.carta.titulo} sale $${this.carta.precio}`)
+                },
+                otraFuncion: (data)=>{
+                    alert("esto es otra funcion " + data);
+                },
+                calcularIva(){
+                    //calcularIva : ()=>{
+                    this.precioIva = this.carta.precio * 1.21;
+                    return this.precioIva;
+                },
+                cambiarNumero(){
+                    this.numero += 100; 
+                },
+                
+                mostrarNombre2(){
+                    console.log("Llammando a mostrar nombre 2");
+                    return this.nombre.toUpperCase();
+                }
+            },
+            computed:{
+                mostrarNombre(){
+                    // UNA PROPIEDAD COMPUTADA SIEMPRE DEBE TENER UN RETURN
+                    /**
+                     * los metodos computados son reactivos, si no se modifica el valor no se re-renderiza el dom. es mas eficiente  
+                    */
+                    console.log("Llamando a mostrar nombre");
+                    return this.nombre.toUpperCase();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
