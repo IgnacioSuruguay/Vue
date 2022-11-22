@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 03</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    <section id="app" class="container">
+        <header class="encabezado">
+            <h1>Coderflixx</h1>
+            <p>Bienbenido/a {{usuario}}</p>
+            <button v-if="usuario !=''" >LogOut</button>
+            <button v-else>LogIn</button>
+        </header>
+        <main class="container">
+            <article>
+                <img src="./imagenes/pelis1.png" alt="" srcset="">
+            </article>
+            <article v-if="esMayor">
+                <img src="./imagenes/pelis2.png" alt="" srcset="">
+            </article>
+            <article v-else>
+                <img src="./imagenes/pelis2-copy.png" alt="" srcset="">
+            </article>
+            <article :class="css">
+                <h4 :style="{margin:'10px'}" >Usuarios activos</h4>
+                <ul class="list-group list-group-horizontal" >
+                    <li class="list-group-item" v-for="(cliente, index) of clientes"  :key="index" :class="css">
+                        <img :src="cliente.imagen" alt="" srcset="">
+                        <span>{{cliente.nombre}}</span>
+                    </li>
+                </ul>
+            </article>
+        </main>
+        <footer>
+
+        </footer>
+    </section>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<!-- Vue CDN -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
