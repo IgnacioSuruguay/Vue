@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <TablePersonas   :alumnos="alumnosCrossfit.alumnos" :tipo="table-dark" />
-    <TablePersonas :alumnos="alumnosBoxeo.alumnos" :tipo="table-dark" />
-    <TablePersonas :alumnos="alumnosMusculacion.alumnos" :tipo="table-dark" />
+    <HelloWorld msg="Componentes con Vue CLI"/>
+    <div class="container">
+    <TablePersonas   :alumnos="alumnosCrossfit.alumnos" tipo="table-dark" :fontcolor="alumnosCrossfit.color" />
+    <TablePersonas :alumnos="alumnosBoxeo.alumnos" tipo="table-danger" :fontcolor="alumnosBoxeo.color" />
+    <TablePersonas :alumnos="alumnosMusculacion.alumnos" tipo="table-primary" :fontcolor="alumnosMusculacion.color" />
+    </div>
   </div>
 </template>
 
