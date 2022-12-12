@@ -3,10 +3,12 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <Register></Register>
     <LogIn></LogIn>
+    <ListadoProductos></ListadoProductos>
   </div>
 </template>
 
 <script>
+import ListadoProductos from './components/ListadoProductos.vue';
 import LogIn from './components/LogIn.vue';
 import Register from './components/Register.vue';
 
@@ -14,7 +16,8 @@ export default {
   name: 'App',
   components: {
     Register,
-    LogIn
+    LogIn,
+    ListadoProductos
 }
 }
 </script>
