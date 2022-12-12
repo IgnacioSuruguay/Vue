@@ -2,17 +2,19 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <Register></Register>
-    <!-- <LogIn></LogIn> -->
+    <LogIn></LogIn>
   </div>
 </template>
 
 <script>
+import LogIn from './components/LogIn.vue';
 import Register from './components/Register.vue';
 
 export default {
   name: 'App',
   components: {
-    Register
+    Register,
+    LogIn
 }
 }
 </script>
