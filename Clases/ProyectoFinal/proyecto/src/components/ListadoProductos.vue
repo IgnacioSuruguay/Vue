@@ -30,6 +30,7 @@
       return {
         peliculas:[
           {
+            id: 1,
             titulo : "Terminator",
             anio : 1984,
             // poster :"../assets/posters/terminator-1984.jpg",
@@ -40,6 +41,7 @@
           },
           
           {
+            id: 2,
             titulo : "Volver al futuro",
             anio : 1985,
             // poster :"../assets/posters/backtothefuture-1985.jpg",

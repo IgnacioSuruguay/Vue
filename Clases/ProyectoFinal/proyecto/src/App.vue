@@ -5,10 +5,12 @@
     <LogIn></LogIn>
     <ListadoProductos></ListadoProductos>
     <InfoProducto></InfoProducto>
+    <Carrito></Carrito>
   </div>
 </template>
 
 <script>
+import Carrito from './components/Carrito.vue';
 import InfoProducto from './components/InfoProducto.vue';
 import ListadoProductos from './components/ListadoProductos.vue';
 import LogIn from './components/LogIn.vue';
@@ -20,7 +22,8 @@ export default {
     Register,
     LogIn,
     ListadoProductos,
-    InfoProducto
+    InfoProducto,
+    Carrito
 }
 }
 </script>

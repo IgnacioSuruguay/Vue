@@ -32,6 +32,7 @@
     data () {
       return {
         item:{
+            id: 1,
             titulo : "Terminator",
             anio : 1984,
             // poster :"../assets/posters/terminator-1984.jpg",
