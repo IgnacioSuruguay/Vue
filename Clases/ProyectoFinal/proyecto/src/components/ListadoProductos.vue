@@ -1,15 +1,19 @@
 <template>
-
-  <section class="listado-productos">
-    <div class="card item"  v-for="(pelicula, index) in peliculas" :key="index">
-      <img :src="pelicula.poster" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
-        <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
-        <p class="list-group-item">${{pelicula.precio}}</p>
-        <button class="btn btn-primary">Mas Información</button>
-      </div>
-    </div>    
+  <section class="listado-productos container">
+    <h1>listado</h1>
+    <ul>
+      <li>
+        <div class="card item"  v-for="(pelicula, index) in peliculas" :key="index">
+          <img :src="pelicula.poster" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
+            <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
+            <p class="list-group-item">${{pelicula.precio}}</p>
+            <button class="btn btn-primary">Mas Información</button>
+          </div>
+        </div>
+      </li>
+    </ul>    
   </section>
 
 </template>
@@ -62,9 +66,12 @@
   .listado-productos {
     border: 1px solid lightgrey;
     border-radius: 10px;
-    width: 400px;
-    margin: 10px auto;
+  }
+  .listado-productos ul{
     display: flex;
+  }
+  .listado-productos ul li{
+    display: inline-flex;
   }
   .item{
     width: 18rem;
