@@ -1,32 +1,12 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <Register></Register>
-    <LogIn></LogIn>
-    <ListadoProductos></ListadoProductos>
-    <InfoProducto></InfoProducto>
-    <Carrito></Carrito>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import Carrito from './components/Carrito.vue';
-import InfoProducto from './components/InfoProducto.vue';
-import ListadoProductos from './components/ListadoProductos.vue';
-import LogIn from './components/LogIn.vue';
-import Register from './components/Register.vue';
-
-export default {
-  name: 'App',
-  components: {
-    Register,
-    LogIn,
-    ListadoProductos,
-    InfoProducto,
-    Carrito
-}
-}
-</script>
 
 <style>
 #app {
@@ -35,6 +15,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
