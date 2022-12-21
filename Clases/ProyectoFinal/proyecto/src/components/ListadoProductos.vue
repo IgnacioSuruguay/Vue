@@ -4,7 +4,7 @@
     <ul>
       <li>
         <div class="card item"  v-for="(pelicula, index) in peliculas" :key="index">
-          <img :src="pelicula.poster" class="card-img-top" alt="...">
+          <img :src="pelicula.posterUrl" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
             <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
@@ -20,37 +20,48 @@
 
 <script lang="js">
   // import {Pelicula} from "../class"
+  import axios from 'axios';
   export default  {
     name: 'listado-productos',
     props: [],
+    created(){
+      const peliculasEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/peliculas";
+      axios.get(peliculasEndPoint)
+      .then((response) => {
+        console.table(response.data);
+        this.peliculas = response.data;
+      })
+      .catch((err) => {console.error(`${err}`)})
+    },
     mounted () {
 
     },
     data () {
       return {
-        peliculas:[
-          {
-            id: 1,
-            titulo : "Terminator",
-            anio : 1984,
-            // poster :"../assets/posters/terminator-1984.jpg",
-            poster: "https://img.yts.mx/assets/images/movies/The_Terminator_1984/medium-cover.jpg",
-            sinopsis : "Un cyborg ha sido enviado desde el futuro en una misión mortal: Eliminar a Sarah Connor, una joven cuya vida tendrá una gran importancia en los próximos años.",
-            genero : ["Ciencia Ficción", "Acción"],
-            precio : 10.0
-          },
+        peliculas: []
+        // peliculas:[
+        //   {
+        //     id: 1,
+        //     titulo : "Terminator",
+        //     anio : 1984,
+        //     // poster :"../assets/posters/terminator-1984.jpg",
+        //     poster: "https://img.yts.mx/assets/images/movies/The_Terminator_1984/medium-cover.jpg",
+        //     sinopsis : "Un cyborg ha sido enviado desde el futuro en una misión mortal: Eliminar a Sarah Connor, una joven cuya vida tendrá una gran importancia en los próximos años.",
+        //     genero : ["Ciencia Ficción", "Acción"],
+        //     precio : 10.0
+        //   },
           
-          {
-            id: 2,
-            titulo : "Volver al futuro",
-            anio : 1985,
-            // poster :"../assets/posters/backtothefuture-1985.jpg",
-            poster: "https://img.yts.mx/assets/images/movies/Back_to_the_Future_1985/medium-cover.jpg",
-            sinopsis : "Marty McFly es un adolescente amigo de Doc, un científico a los que todos menos él toman por chiflado. Cuando Doc crea una máquina para viajar en el tiempo en forma de un automóvil deportivo, Marty viaja accidentalmente al año 1955",
-            genero : ["Ciencia Ficción"],
-            precio : 9.5
-          }
-        ]
+        //   {
+        //     id: 2,
+        //     titulo : "Volver al futuro",
+        //     anio : 1985,
+        //     // poster :"../assets/posters/backtothefuture-1985.jpg",
+        //     poster: "https://img.yts.mx/assets/images/movies/Back_to_the_Future_1985/medium-cover.jpg",
+        //     sinopsis : "Marty McFly es un adolescente amigo de Doc, un científico a los que todos menos él toman por chiflado. Cuando Doc crea una máquina para viajar en el tiempo en forma de un automóvil deportivo, Marty viaja accidentalmente al año 1955",
+        //     genero : ["Ciencia Ficción"],
+        //     precio : 9.5
+        //   }
+        // ]
       }
     },
     methods: {
