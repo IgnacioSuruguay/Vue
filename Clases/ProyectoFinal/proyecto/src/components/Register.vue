@@ -1,6 +1,6 @@
 <template>
 
-  <section class="container register" >
+  <section class="container register" v-if="register">
     <h1>Registro</h1>
     <form action="" method="post"  @submit.prevent="submit">
       <div class="mb-3">
@@ -24,6 +24,10 @@
         <!--<label for="password" class="form-label">Confirmar contraseña</label>-->
         <input type="password" class="form-control" id="repassword" name="repassword" v-model.trim="repassword" placeholder="Ingrese su contraseña nuevamente">
       </div>
+      <div class="mb-3">
+        <label for="esAdmin" class="form-label">¿Es administrador?</label>
+        <input type="checkbox" class="" id="esAdmin" name="esAdmin" v-model="esAdmin" >
+      </div>
       <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
   </section>
@@ -41,10 +45,23 @@
   //   }
   // }
   
-  import Usuario from '../class'
+  import Usuario from '../class';
+  import axios  from 'axios';
   export default  {
     name: 'Register',
-    props: {},
+    props: {
+      register: Boolean,
+    },
+    created(){
+      
+      const usuariosEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/usuarios";
+      axios.get(usuariosEndPoint)
+      .then((response) => {
+        console.table(response.data);
+        this.usuarios = response.data;
+      })
+      .catch((err) => {console.error(`${err}`)})
+    },
     mounted () {
 
     },
@@ -55,14 +72,16 @@
         email:"",
         password:"",
         repassword:"",
-        usuarios:[
-          {            
-            nombre:"Admin",
-            apellido:"Admin",
-            email:"admin@admin.com",
-            password:"Password01."
-          }
-        ]
+        esAdmin: false,
+        // usuarios:[
+        //   {            
+        //     nombre:"Admin",
+        //     apellido:"Admin",
+        //     email:"admin@admin.com",
+        //     password:"Password01."
+        //   }
+        // ]
+        usuarios: [],
       } 
     },
     methods: {
@@ -118,15 +137,19 @@
         //   email: this.email,
         //   password: this.password
         // };
-        this.usuarios.push(user)
+        //this.usuarios.push(user);
+        const URLpost = "https://639a6077d514150197347436.mockapi.io/cinema/usuarios";
+        axios.post(URLpost, user)
+        .then((response) =>
+        {console.table(response.data)})
 
-
+        
         //reset data values
-        //Object.assign(this.$data, this.$options.data());
-          this.nombre = '';
-          this.apellido = '';
-          this.email = '';
-          this.password = '';
+        Object.assign(this.$data, this.$options.data());
+        // this.nombre = '';
+        // this.apellido = '';
+        // this.email = '';
+        // this.password = '';
         
       }
     },

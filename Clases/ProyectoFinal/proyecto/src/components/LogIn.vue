@@ -1,6 +1,6 @@
 <template>
 
-  <section class="log-in container">
+  <section class="log-in container" v-if="login">
     <h1>LogIn</h1>
     <form action="" method="post"  @submit.prevent="submit">
       <div class="mb-3">
@@ -14,6 +14,7 @@
       <a href="javascript:alert('Olvidé mi contraseña')">Olvidé mi contraseña</a>
       <br>
       <button class="btn btn-primary">Iniciar sesión</button>
+      <button class="btn btn-secondary" @click="enviarRegister()">Registrarse</button>
     </form>
   </section>
 
@@ -21,24 +22,37 @@
 
 <script lang="js">
 
+  import axios from 'axios'
   export default  {
     name: 'log-in',
     props: [],
     mounted () {
 
     },
+    created(){
+      const usuariosEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/usuarios";
+      axios.get(usuariosEndPoint)
+      .then((response) => {
+        console.table(response.data);
+        this.usuarios = response.data;
+      })
+      .catch((err) => {console.error(`${err}`)})
+
+    },
     data () {
       return {
         email:"",
         password:"",
-        usuarios:[
-          {            
-            nombre:"User",
-            apellido:"Admin",
-            email:"admin@admin.com",
-            password:"Password01."
-          }
-        ]
+        // usuarios:[
+        //   {            
+        //     nombre:"User",
+        //     apellido:"Admin",
+        //     email:"admin@admin.com",
+        //     password:"Password01."
+        //   }
+        // ]
+        usuarios:[],
+        login: true,
       }
     },
     methods: {
@@ -58,6 +72,10 @@
         }
         alert(`Bienvenido ${user.nombre} ${user.apellido}` );
         
+      },
+      enviarRegister(){
+        console.log("enviarRegister()");
+        this.login = false;
       }
     },
     computed: {
