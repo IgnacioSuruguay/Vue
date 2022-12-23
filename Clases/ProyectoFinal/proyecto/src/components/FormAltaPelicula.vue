@@ -1,88 +1,114 @@
 <template>
-
-  <section class="form-alta-funcion container">
-    <h1>form-alta-funcion</h1>
-    <!-- <form action="" method="post" @submit.prevent="submit()" id="form1" class="needs-validation" novalidate> -->
-    <form action="" method="post" @submit.prevent="submit()" id="form1" novalidate>
-      <div class="form-floating mb-3" id="inputpelicula">
-        <select class="form-select input-group-sm has-validation" id="pelicula" aria-label="Floating label select example" v-model="pelicula" required>
-          <option selected disabled hidden>Seleccione una película</option>
-          <option value="Terminator">Terminator</option>
-          <option value="Volver al Futuro">Volver al Futuro</option>
-          <option value="Depredador">Depredador</option>
-        </select>
-        <label for="floatingSelect">Película</label>
-        <div class="invalid-feedback text-start" id="errorpeli">
+	<section class="form-alta-pelicula container">
+		<h1>form-alta-funcion</h1>
+		<!-- <form action="" method="post" @submit.prevent="submit()" id="form1" class="needs-validation" novalidate> -->
+		<form action="" method="post" @submit.prevent="submit()" id="form1" novalidate>
+    <!-- fila 1 -->
+			<div class="row g-3" >
+				<!-- pelicula  -->
+        <div class="form-floating mb-3 col-md-6" id="input-titulo">
+					<input id="titulo" ref="titulo" v-model="titulo" class="form-control input-group-sm" type="text" required/>      
+					<label for="">Película</label>
+					<div class="invalid-feedback text-start" ref="errortitulo"></div>
+				</div>
+        <!-- anio -->
+				<div class="form-floating mb-3 col-md-3">
+					<input class="form-control input-group-sm has-validation" type="text" value="" v-model="anio" ref="anio">
+					<label class="" for="anio">
+					Año
+					</label>
+					<div class="invalid-feedback text-start" ref="erroranio"></div>
+				</div>
+        <!-- idioma -->
+				<div class="form-floating mb-3 col-md-3">
+					<select class="form-select input-group-sm has-validation" ref="idioma" v-model="idioma" required>
+						<option selected disabled hidden>Seleccione un idioma</option>
+						<option value="Castellano">Castellano</option>
+						<option value="Ingles">Inglés</option>
+						<option value="Italiano">Italiano</option>
+						<option value="Frances">Francés</option>
+						<option value="Ruso">Ruso</option>
+					</select>
+					<label for="">Idioma</label>
+					<div class="invalid-feedback text-start" ref="erroridioma"></div>
+				</div>
+			</div>
+      <!-- fila 2 -->
+			<div class="row g-3" >
+  			<!-- sinopsis -->
+        <div class="form-floating col-md-6">
+					<textarea  name="sinopsis" ref="sinopsis" style="height: 200px;" class="form-control input-group-sm has-validation" v-model="sinonsis" required></textarea>
+					<label for="inicio-fecha">Sinopsis</label>
+					<div class="invalid-feedback" ref="errorsinopsis"></div>
+				</div>
+        <!-- generos -->
+        <div class="col-md-6">
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero1" value="Acción" v-model="genero" required>
+            <label class="form-check-label" for="genero1">
+            Acción
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero2" value="Terror" v-model="genero" required>
+            <label class="form-check-label" for="genero2">
+            Terror
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero3" value="Suspenso" v-model="genero" required>
+            <label class="form-check-label" for="genero3">
+            Suspenso
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero4" value="Drama" v-model="genero" required>
+            <label class="form-check-label" for="genero4">
+            Drama
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero5" value="Romance" v-model="genero" required>
+            <label class="form-check-label" for="genero5">
+            Romance
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero6" value="Animacion" v-model="genero" required>
+            <label class="form-check-label" for="genero6">
+            Animacion
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero7" value="Comedia" v-model="genero" required>
+            <label class="form-check-label" for="genero7">
+            Comedia
+            </label>
+          </div>
+          <div class="form-check text-start">
+            <input class="form-check-input" type="checkbox" name="genero" ref="genero8" value="Aventuda" v-model="genero" required>
+            <label class="form-check-label" for="genero8">
+            Aventura
+            </label>
+            <div class="invalid-feedback" ref="errorgenero"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="row g-3" id="fechahora">
-      <div class="form-floating col-md-6">
-        <input id="inicio-fecha" v-model="inicio_dia" class="form-control  input-group-sm" type="date" required />
-        <label for="inicio-fecha">Dia de la función</label>
-        <div class="invalid-feedback" id="errorfecha"></div>
-      </div>
-      <div class="form-floating col-md-6">
-        <input id="inicio-hora" v-model="inicio_hora" class="form-control  input-group-sm" type="time" required/>      
-        <label for="inicio-hora">Hora de la función</label>
-        <div class="invalid-feedback" id="errorhora">
-        </div>
-      </div>
-    </div>
-      <div class="form-check text-start">
-        <input class="form-check-input" type="radio" name="formato-funcion" id="formato-funcion1" value="2D" v-model="formato_funcion" required>
-        <label class="form-check-label" for="formato-funcion1">
-          2D
-        </label>
-      </div>
-      <div class="form-check text-start">
-        <input class="form-check-input" type="radio" name="formato-funcion" id="formato-funcion2" value="3D" v-model="formato_funcion" required>
-        <label class="form-check-label" for="formato-funcion2">
-          3D
-        </label>
-        <div class="invalid-feedback" id="errorformato"></div>
-
-      </div>
-      <button class="btn btn-primary" type="submit">Crear función</button>
-    </form>
-<br>
-<br>
-    <div class="">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Película</th>
-            <th>Formato</th>
-            <th>Día</th>
-            <th>Hora</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(funcion, index) in funciones" :key="index">
-            <td>{{funcion.pelicula}}</td>
-            <td>{{funcion.inicio_dia}}</td>
-            <td>{{funcion.inicio_hora}}</td>
-            <td>{{funcion.formato_funcion}}</td>
-          </tr>
-          <tr v-if="funciones.length == 0">
-            <td colspan="4">No hay funciones cargadas</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-  </section>
-
+			</div>
+			
+			<button class="btn btn-primary" type="submit">Crear función</button>
+		</form>
+	</section>
 </template>
 
 <script lang="js">
 
-class Funcion{
-  constructor(peli, fechaIni, horaIni, formato){
-    this.pelicula = peli;
-    this.inicio_dia  = fechaIni;
-    this.inicio_hora = horaIni;
-    this.formato_funcion = formato;
+class Pelicula{
+  constructor(titulo, anio, idioma, sinopsis, genero){
+    this.titulo = titulo;
+    this.anio = anio;
+    this.idioma  =idioma;
+    this.sinopsis = sinopsis;
+    this.genero = genero;
   }
 }
 import axios from 'axios';
@@ -97,71 +123,65 @@ export default  {
   },
   data () {
     return {
-      pelicula: '',
-      inicio_dia: '',
-      inicio_hora: '',
-      formato_funcion: '',
-      funciones: [],
+      titulo: '',
+      anio: '',
+      idioma: '',
+      sinopsis: '',
+      genero:[],
+      
     }
   },
   methods: {
     submit(){
       let flagError = false;
-      document.getElementById("errorpeli").innerText="";
-      document.getElementById("errorfecha").innerText="";
-      document.getElementById("errorhora").innerText="";
-      document.getElementById("errorformato").innerText="";
+      // document.getElementById("errorpeli").innerText="";
 
-      document.getElementById("pelicula").classList.remove("is-invalid");
-      document.getElementById("inicio-fecha").classList.remove("is-invalid");
-      document.getElementById("inicio-hora").classList.remove("is-invalid");
-      document.getElementById("formato-funcion1").classList.remove("is-invalid");
-      document.getElementById("formato-funcion2").classList.remove("is-invalid");
+      // document.getElementById("pelicula").classList.remove("is-invalid");
       
-      if(!this.pelicula){
-        document.getElementById("pelicula").classList.add("is-invalid");
-        document.getElementById("errorpeli").innerText="Campo obligatorio";
+      debugger
+      if(!this.titulo){
+        this.$refs.titulo.classList.add("is-invalid");
+        this.$refs.errortitulo.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.inicio_dia){
-        document.getElementById("inicio-fecha").classList.add("is-invalid");
-        document.getElementById("errorfecha").innerText="Campo obligatorio";
+      if(!this.anio){
+        this.$refs.anio.classList.add("is-invalid");
+        this.$refs.erroranio.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.inicio_hora){
-        document.getElementById("inicio-hora").classList.add("is-invalid");
-        document.getElementById("errorhora").innerText="Campo obligatorio";
+      if(!this.idioma){
+        this.$refs.idioma.classList.add("is-invalid");
+        this.$refs.erroridioma.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.formato_funcion){
-        document.getElementById("formato-funcion1").classList.add("is-invalid");
-        document.getElementById("formato-funcion2").classList.add("is-invalid");
-        document.getElementById("errorformato").innerText="Campo obligatorio";
+      if(!this.sinopsis){
+        this.$refs.sinopsis.classList.add("is-invalid");
+        this.$refs.errorsinopsis.innerText="Campo obligatorio";
         flagError = true;
       }
 
       //validacion fecha. no puede ser menor a la fecha actual
-      let today = new Date();
-      // let fn_fecha = new Date(this.inicio_dia);
-      let fn_fechahora = new Date(this.inicio_dia+", "+ this.inicio_hora);
 
-      if(fn_fechahora < new Date().setHours(0,0,0,0)){
-        document.querySelectorAll("#errorfecha")[0].innerText = "la fecha no puede ser menor al fecha actual";
-        document.getElementById("inicio-fecha").classList.add("is-invalid");
+      if(!this.genero.length){
+        this.$refs.genero1.classList.add("is-invalid");
+        this.$refs.genero2.classList.add("is-invalid");
+        this.$refs.genero3.classList.add("is-invalid");
+        this.$refs.genero4.classList.add("is-invalid");
+        this.$refs.genero5.classList.add("is-invalid");
+        this.$refs.genero6.classList.add("is-invalid");
+        this.$refs.genero7.classList.add("is-invalid");
+        this.$refs.genero8.classList.add("is-invalid");
+        this.$refs.errorgenero.innerText = "Debe seleccionar al menos un género";
         flagError = true;
       }
-      if(fn_fechahora < today){
-        document.querySelectorAll("#errorhora")[0].innerText = "la hora debe ser mayor al momento actual";
-        document.getElementById("inicio-hora").classList.add("is-invalid");
-        flagError = true;
-      }
+
       let form = document.getElementById('form1');
       // form.classList.add('was-validated');
 
       if (!form.checkValidity() || flagError) {
         return;
       }
-      let fn = new Funcion(this.pelicula, this.inicio_dia, this.inicio_hora, this.formato_funcion);
+      let pelicula = new Pelicula(this.titulo, this.anio, this.idioma, this.sinopsis, this.genero);
       this.funciones.push(fn);
 
     },
@@ -175,7 +195,7 @@ export default  {
 </script>
 
 <style scoped >
-  .form-alta-funcion {
+  .form-alta-pelicula {
     border: 1px solid lightgrey;
     border-radius: 10px;
   }
