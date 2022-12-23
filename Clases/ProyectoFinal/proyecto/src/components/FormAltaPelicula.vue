@@ -1,19 +1,19 @@
 <template>
 	<section class="form-alta-pelicula container">
-		<h1>form-alta-funcion</h1>
+		<h1>form-alta-pelicula</h1>
 		<!-- <form action="" method="post" @submit.prevent="submit()" id="form1" class="needs-validation" novalidate> -->
 		<form action="" method="post" @submit.prevent="submit()" id="form1" novalidate>
     <!-- fila 1 -->
 			<div class="row g-3" >
 				<!-- pelicula  -->
         <div class="form-floating mb-3 col-md-6" id="input-titulo">
-					<input id="titulo" ref="titulo" v-model="titulo" class="form-control input-group-sm" type="text" required/>      
+					<input id="titulo" ref="titulo" v-model="peli_titulo" class="form-control input-group-sm" type="text" required/>      
 					<label for="">Película</label>
 					<div class="invalid-feedback text-start" ref="errortitulo"></div>
 				</div>
         <!-- anio -->
 				<div class="form-floating mb-3 col-md-3">
-					<input class="form-control input-group-sm has-validation" type="text" value="" v-model="anio" ref="anio">
+					<input class="form-control input-group-sm has-validation" type="text" value="" v-model="peli_anio" ref="anio">
 					<label class="" for="anio">
 					Año
 					</label>
@@ -21,80 +21,60 @@
 				</div>
         <!-- idioma -->
 				<div class="form-floating mb-3 col-md-3">
-					<select class="form-select input-group-sm has-validation" ref="idioma" v-model="idioma" required>
-						<option selected disabled hidden>Seleccione un idioma</option>
-						<option value="Castellano">Castellano</option>
-						<option value="Ingles">Inglés</option>
-						<option value="Italiano">Italiano</option>
-						<option value="Frances">Francés</option>
-						<option value="Ruso">Ruso</option>
+					<select class="form-select input-group-sm has-validation" ref="idioma" v-model="peli_idioma" required>
+						<option v-for="(idioma, index) in list_idiomas" :key="index" :value="idioma">{{ idioma }}</option>
 					</select>
 					<label for="">Idioma</label>
 					<div class="invalid-feedback text-start" ref="erroridioma"></div>
 				</div>
 			</div>
       <!-- fila 2 -->
-			<div class="row g-3" >
-  			<!-- sinopsis -->
+			<div class="row g-3">
+        <!-- sinopsis -->
         <div class="form-floating col-md-6">
-					<textarea  name="sinopsis" ref="sinopsis" style="height: 200px;" class="form-control input-group-sm has-validation" v-model="sinonsis" required></textarea>
+					<textarea  name="sinopsis" ref="sinopsis" style="height: 200px;" class="form-control input-group-sm has-validation" v-model="peli_sinopsis" required></textarea>
 					<label for="inicio-fecha">Sinopsis</label>
 					<div class="invalid-feedback" ref="errorsinopsis"></div>
 				</div>
         <!-- generos -->
-        <div class="col-md-6">
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero1" value="Acción" v-model="genero" required>
-            <label class="form-check-label" for="genero1">
-            Acción
+        <div class="col-md-3">
+          <div class="form-check text-start" v-for="(gene, index) in list_generos" :key="index">
+            <input class="form-check-input" type="checkbox" name="genero" :id="'genero'+index" ref="generos" :value="gene" v-model="peli_genero" required>
+            <label class="form-check-label" :for="'genero'+index">
+            {{gene}}
             </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero2" value="Terror" v-model="genero" required>
-            <label class="form-check-label" for="genero2">
-            Terror
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero3" value="Suspenso" v-model="genero" required>
-            <label class="form-check-label" for="genero3">
-            Suspenso
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero4" value="Drama" v-model="genero" required>
-            <label class="form-check-label" for="genero4">
-            Drama
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero5" value="Romance" v-model="genero" required>
-            <label class="form-check-label" for="genero5">
-            Romance
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero6" value="Animacion" v-model="genero" required>
-            <label class="form-check-label" for="genero6">
-            Animacion
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero7" value="Comedia" v-model="genero" required>
-            <label class="form-check-label" for="genero7">
-            Comedia
-            </label>
-          </div>
-          <div class="form-check text-start">
-            <input class="form-check-input" type="checkbox" name="genero" ref="genero8" value="Aventuda" v-model="genero" required>
-            <label class="form-check-label" for="genero8">
-            Aventura
-            </label>
+          </div> 
+          <div class="form-check text-start" >
+            <input class="form-check-input" type="checkbox" ref="genero8" hidden>
             <div class="invalid-feedback" ref="errorgenero"></div>
           </div>
         </div>
+        <!-- precio -->
+          <!-- https://http2.mlstatic.com/D_NQ_NP_809718-MLA41881336198_052020-O.jpg -->
+        <div class="form-floating mb-3 col-md-3">
+          <input class="form-control input-group-sm has-validation" type="text" value="" v-model="peli_precio" ref="precio"> 
+          <label class="" for="precio">
+          Precio
+          </label>
+          <div class="invalid-feedback text-start" ref="errorprecio"></div>
+        </div>
 			</div>
-			
+			<div class="row g-3">
+      <!-- url -->
+          <!-- https://http2.mlstatic.com/D_NQ_NP_809718-MLA41881336198_052020-O.jpg -->
+        <div class="form-floating mb-3 col-md-6">
+          <input class="form-control input-group-sm has-validation" type="url" value="" v-model="peli_posterurl" ref="posterurl"> 
+          <label class="" for="precio">
+          URL Poster
+          </label>
+          <div class="invalid-feedback text-start" ref="errorposterurl"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <div class="card" style="width: 18rem;">
+            <img :src="peli_posterurl" class="card-img-top" alt="..." onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5_u6G-llwL_q6X0VotcnOlk3UX7wHyRHEFw&usqp=CAU'"></img>
+          </div>
+        </div>
+      </div>
 			<button class="btn btn-primary" type="submit">Crear función</button>
 		</form>
 	</section>
@@ -123,56 +103,103 @@ export default  {
   },
   data () {
     return {
-      titulo: '',
-      anio: '',
-      idioma: '',
-      sinopsis: '',
-      genero:[],
+      peli_titulo: '',
+      peli_anio: '',
+      peli_idioma: '',
+      peli_sinopsis: '',
+      peli_genero:[],
+      peli_precio: "",
+      peli_posterurl:"",
+      list_idiomas:
+      [
+        "Castellano",
+        "Inglés",
+        "Italiano",
+        "Francés",
+        "Ruso"
+      ],
+      list_generos: 
+      [
+        'Acción',
+        'Terror',
+        'Suspenso',
+        'Drama',
+        'Romance',
+        'Animacion',
+        'Comedia',
+        'Aventura'
+      ],
       
     }
   },
   methods: {
     submit(){
       let flagError = false;
-      // document.getElementById("errorpeli").innerText="";
-
-      // document.getElementById("pelicula").classList.remove("is-invalid");
+      
+      this.$refs.errortitulo.innerText="";
+      this.$refs.erroranio.innerText="";
+      this.$refs.erroridioma.innerText="";
+      this.$refs.errorsinopsis.innerText="";      
+      this.$refs.errorposterurl.innerText="";
+      
+      this.$refs.titulo.classList.remove("is-invalid");
+      this.$refs.anio.classList.remove("is-invalid");
+      this.$refs.idioma.classList.remove("is-invalid");
+      this.$refs.sinopsis.classList.remove("is-invalid");
+      this.$refs.generos.forEach(genero => genero.classList.remove("is-invalid"));
+      this.$refs.genero8.classList.remove("is-invalid");
+      this.$refs.posterurl.classList.remove("is-invalid");
       
       debugger
-      if(!this.titulo){
+      if(!this.peli_titulo){
         this.$refs.titulo.classList.add("is-invalid");
         this.$refs.errortitulo.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.anio){
+      if(!this.peli_anio){
         this.$refs.anio.classList.add("is-invalid");
         this.$refs.erroranio.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.idioma){
+      if(!this.peli_idioma){
         this.$refs.idioma.classList.add("is-invalid");
         this.$refs.erroridioma.innerText="Campo obligatorio";
         flagError = true;
       }
-      if(!this.sinopsis){
+      if(!this.peli_sinopsis){
         this.$refs.sinopsis.classList.add("is-invalid");
         this.$refs.errorsinopsis.innerText="Campo obligatorio";
         flagError = true;
       }
+      if(!this.peli_precio){
+        this.$refs.precio.classList.add("is-invalid");
+        this.$refs.errorprecio.innerText="Campo obligatorio";
+        flagError = true;
+      }
+      if(!this.peli_posterurl){
+        this.$refs.posterurl.classList.add("is-invalid");
+        this.$refs.errorposterurl.innerText="Campo obligatorio";
+        flagError = true;
+      }
 
-      //validacion fecha. no puede ser menor a la fecha actual
-
-      if(!this.genero.length){
-        this.$refs.genero1.classList.add("is-invalid");
-        this.$refs.genero2.classList.add("is-invalid");
-        this.$refs.genero3.classList.add("is-invalid");
-        this.$refs.genero4.classList.add("is-invalid");
-        this.$refs.genero5.classList.add("is-invalid");
-        this.$refs.genero6.classList.add("is-invalid");
-        this.$refs.genero7.classList.add("is-invalid");
-        this.$refs.genero8.classList.add("is-invalid");
+      if(!this.peli_genero.length){
+        this.$refs.generos.forEach(genero => genero.classList.add("is-invalid"));
+         this.$refs.genero8.classList.add("is-invalid");
         this.$refs.errorgenero.innerText = "Debe seleccionar al menos un género";
         flagError = true;
+      }
+
+      //validacion anio
+      if(isNaN(this.peli_anio)){
+        this.$refs.anio.classList.add("is-invalid");
+        this.$refs.erroranio.innerText="Ingrese un año";
+      }
+
+      //validacion URL
+      if(! /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(this.peli_posterurl)) {
+        this.$refs.posterurl.classList.add("is-invalid");
+        this.$refs.errorposterurl.innerText="Ingrese un URL valida";
+        return;
       }
 
       let form = document.getElementById('form1');
@@ -181,10 +208,18 @@ export default  {
       if (!form.checkValidity() || flagError) {
         return;
       }
-      let pelicula = new Pelicula(this.titulo, this.anio, this.idioma, this.sinopsis, this.genero);
-      this.funciones.push(fn);
 
-    },
+
+      let pelicula = new Pelicula(this.peli_titulo, this.peli_anio, this.peli_idioma, this.peli_sinopsis, this.peli_genero);
+      
+      axios.post("", pelicula)
+      .then((response) =>{
+        console.log("created" + response.data);
+      })
+      .catch((err) => {
+        console.error(`${err}`)
+      }); 
+    }
   },
   computed: {
 
