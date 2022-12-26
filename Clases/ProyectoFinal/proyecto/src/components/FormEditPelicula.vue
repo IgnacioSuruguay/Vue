@@ -1,6 +1,6 @@
 <template>
-	<section class="form-alta-pelicula container">
-		<h1>form-alta-pelicula</h1>
+	<section class="form-edit-pelicula container">
+		<h1>form-edit-pelicula</h1>
 		<!-- <form action="" method="post" @submit.prevent="submit()" id="form1" class="needs-validation" novalidate> -->
 		<form action="" method="post" @submit.prevent="submit()" id="form1" novalidate>
     <!-- fila 1 -->
@@ -8,7 +8,9 @@
 				<!-- pelicula  -->
         <div class="form-floating mb-3 col-md-6" id="input-titulo">
 					<input id="titulo" ref="titulo" v-model="peli_titulo" class="form-control input-group-sm" type="text" required/>      
-					<label for="">Película</label>
+					<label for="">
+            Pelicula
+          </label>
 					<div class="invalid-feedback text-start" ref="errortitulo"></div>
 				</div>
         <!-- anio -->
@@ -78,7 +80,7 @@
           </div>
         </div>
       </div>
-			<button class="btn btn-primary" type="submit">Crear pelicula</button>
+			<button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Actualizar pelicula</button>
 		</form>
 	</section>
 </template>
@@ -98,17 +100,24 @@ class Pelicula{
 }
 import axios from 'axios';
 export default  {
-  name: 'form-alta-pelicula',
-  props: [],
+  name: 'form-edit-pelicula',
+  props: {
+    pelicula: Object
+  },
   created(){
 
   },
   mounted () {
-
+    if(this.pelicula){
+      console.log("hay lago");
+    }
+    else{
+      console.log("empty");
+    }
   },
   data () {
     return {
-      peli_titulo: '',
+      peli_titulo: (this.pelicula) ? this.pelicula.titulo : '' ,
       peli_anio: '',
       peli_idioma: '',
       peli_sinopsis: '',
@@ -140,7 +149,7 @@ export default  {
   methods: {
     submit(){
       let flagError = false;
-      
+      debugger
       this.$refs.errortitulo.innerText="";
       this.$refs.erroranio.innerText="";
       this.$refs.erroridioma.innerText="";
@@ -210,11 +219,10 @@ export default  {
       if (flagError) {
         return;
       }
-
 debugger
       let pelicula = new Pelicula(this.peli_titulo, this.peli_anio, this.peli_idioma, this.peli_sinopsis, this.peli_genero, this.peli_precio, this.peli_posterurl);
       
-      axios.post("https://639a6077d514150197347436.mockapi.io/cinema/peliculas", pelicula)
+      axios.put("https://639a6077d514150197347436.mockapi.io/cinema/peliculas/"+this.pelicula.id, pelicula)
       .then((response) =>{
         console.log("created" + response.data);
         Object.assign(this.$data, this.$options.data());
@@ -247,6 +255,19 @@ debugger
   },
   computed: {
 
+  },
+  watch:{
+    pelicula(newData ){
+      console.log("prop PELICULA actualiza");
+      this.peli_titulo = newData.titulo;
+      this.peli_anio = newData.anio;
+      this.peli_idioma = newData.idioma;
+      this.peli_sinopsis = newData.sinopsis;
+      this.peli_genero = newData.genero;
+      this.peli_precio = newData.precio;
+      this.peli_posterurl = newData.posterUrl;
+
+    }
   }
 }
 
@@ -254,7 +275,7 @@ debugger
 </script>
 
 <style scoped >
-  .form-alta-pelicula {
+  .form-edit-pelicula {
     border: 1px solid lightgrey;
     border-radius: 10px;
   }
