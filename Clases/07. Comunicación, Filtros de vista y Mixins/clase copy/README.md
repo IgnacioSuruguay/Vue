@@ -1,4 +1,4 @@
-# clase7
+# clase
 
 ## Project setup
 ```

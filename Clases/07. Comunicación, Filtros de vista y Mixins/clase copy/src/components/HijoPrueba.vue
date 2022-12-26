@@ -2,7 +2,7 @@
     <div>
         <h4>{{titulo}}</h4>
         <input type="text" v-model="nuevaFrase">
-        <button class="btn btn-dark" @click="enviarMethodHijo()">Enviar</button>
+        <button class="btn btn-dark" @click="enviar()">Enviar</button>
     </div>
 </template>
 
@@ -20,8 +20,8 @@ export default {
 
 
     methods: {
-        enviarMethodHijo(){
-            this.$emit("enviarEvent",this.nuevaFrase);
+        enviar(){
+            this.$emit("enviar",this.nuevaFrase);
         }
     },
 };

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <h1>{{ titulo }}</h1>
     <div class="row p-4">
-      <hijo-prueba :titulo="tit_hijo" @enviarEvent="frases.push($event)"/>
+      <hijo-prueba :titulo="tit_hijo" @enviar="frases.push($event)"/>
       <card-frase v-for="(frase, index) of frases" :key="index" :frase="frase" :indice="index"/>
     </div>
   </div>
