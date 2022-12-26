@@ -1,10 +1,9 @@
 <template>
   <div id="app">
-    <SignInView></SignInView>
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/AltaFuncion">Crear función</router-link>
+      <router-link to="/peliculas">Peliculas</router-link> |
     </nav>
     <router-view/>
   </div>
@@ -38,9 +37,8 @@ nav a.router-link-exact-active {
 </style>
 <script>
 
-import SignInView from './views/SignInView.vue';
 export default {
-  components: {SignInView},
+  components: {},
   name: "App"
 }
 </script>
