@@ -149,7 +149,7 @@ export default  {
   methods: {
     submit(){
       let flagError = false;
-      debugger
+
       this.$refs.errortitulo.innerText="";
       this.$refs.erroranio.innerText="";
       this.$refs.erroridioma.innerText="";
@@ -219,7 +219,7 @@ export default  {
       if (flagError) {
         return;
       }
-debugger
+
       let pelicula = new Pelicula(this.peli_titulo, this.peli_anio, this.peli_idioma, this.peli_sinopsis, this.peli_genero, this.peli_precio, this.peli_posterurl);
       
       axios.put("https://639a6077d514150197347436.mockapi.io/cinema/peliculas/"+this.pelicula.id, pelicula)

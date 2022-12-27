@@ -96,7 +96,6 @@ import FormEditPelicula from './FormEditPelicula.vue';
                 .catch((err) => { console.error(`${err}`); });
         },
         EditarPelicula(el){
-          debugger
           this.targetEdit = el;
 
         }
