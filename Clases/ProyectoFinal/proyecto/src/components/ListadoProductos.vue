@@ -1,19 +1,18 @@
 <template>
   <section class="listado-productos container">
     <h1>listado</h1>
-    <ul>
-      <li>
-        <div class="card item"  v-for="(pelicula, index) in peliculas" :key="index">
-          <img :src="pelicula.posterUrl" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
-            <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
-            <p class="list-group-item">${{pelicula.precio}}</p>
-            <button class="btn btn-primary">Mas Información</button>
-          </div>
+    <div class="row">
+      <div class="card item col-2 m-2"  v-for="(pelicula, index) in peliculas" :key="index">
+        <img :src="pelicula.posterUrl" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
+          <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
+          <p class="list-group-item">${{pelicula.precio}}</p>
+          <button class="btn btn-secondary">Mas Información</button>
+          <button class="btn btn-primary" @click="AgregarAlCarrito(pelicula)">Agregar al carrito</button>
         </div>
-      </li>
-    </ul>    
+      </div>
+    </div>    
   </section>
 
 </template>
@@ -28,7 +27,7 @@
       const peliculasEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/peliculas";
       axios.get(peliculasEndPoint)
       .then((response) => {
-        console.table(response.data);
+        // console.table(response.data);
         this.peliculas = response.data;
       })
       .catch((err) => {console.error(`${err}`)})
@@ -65,7 +64,34 @@
       }
     },
     methods: {
+      AgregarAlCarrito(el){
+        let arr_carrito=[];
+        // let item = {
+        //   id_pelicula : el.id,
+        //   precio : el.precio,
+        //   dias: 1
+        // }
+        let item = el;
+        item.dias = 1;
 
+        let storage_carrito = sessionStorage.getItem("carrito");
+
+        if(storage_carrito){
+          arr_carrito = JSON.parse(storage_carrito);
+        }
+
+        let indexPeli = arr_carrito.findIndex( (item)=> item.id == el.id);
+        if(indexPeli != -1){
+          arr_carrito[indexPeli].dias += 1;
+        }
+        else{
+          arr_carrito.push(item);
+        }
+
+        sessionStorage.setItem("carrito", JSON.stringify(arr_carrito));
+        
+
+      }
     },
     computed: {
 
