@@ -211,7 +211,7 @@ export default  {
         return;
       }
 
-debugger
+
       let pelicula = new Pelicula(this.peli_titulo, this.peli_anio, this.peli_idioma, this.peli_sinopsis, this.peli_genero, this.peli_precio, this.peli_posterurl);
       
       axios.post("https://639a6077d514150197347436.mockapi.io/cinema/peliculas", pelicula)
