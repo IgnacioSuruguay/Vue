@@ -24,9 +24,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/SignInView.vue')
   },
   {
-    path: '/AltaFuncion',
-    name: 'altafuncion',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AltaFuncionView.vue')
+    path: '/Carrito',
+    name: 'carrito',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CarritoView.vue')
   },
   {
     path: '/Peliculas',
