@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <log-in></log-in>
-    <Register :register="true"></Register>
+    <log-in v-if="visible" @register="visible = $event"></log-in>
+    <Register v-else @register="visible = $event" ></Register>
   </div>
 </template>
 
@@ -19,7 +19,11 @@ export default {
   data(){
     return {
       usuario: null,
+      visible: true
     }
+  },
+  methods:{
+
   }
 }
 </script>

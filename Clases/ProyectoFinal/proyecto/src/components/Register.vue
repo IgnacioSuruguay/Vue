@@ -1,6 +1,6 @@
 <template>
 
-  <section class="container register" v-if="register">
+  <section class="container register" >
     <h1>Registro</h1>
     <form action="" method="post"  @submit.prevent="submit">
       <div class="mb-3">
@@ -29,6 +29,7 @@
         <input type="checkbox" class="" id="esAdmin" name="esAdmin" v-model="esAdmin" >
       </div>
       <button type="submit" class="btn btn-primary">Registrarse</button>
+      <span type="submit" class="btn btn-secondary" @click="volver()">Volver al login</span>
     </form>
   </section>
   
@@ -57,7 +58,7 @@
       const usuariosEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/usuarios";
       axios.get(usuariosEndPoint)
       .then((response) => {
-        console.table(response.data);
+        // console.table(response.data);
         this.usuarios = response.data;
       })
       .catch((err) => {console.error(`${err}`)})
@@ -151,6 +152,9 @@
         // this.email = '';
         // this.password = '';
         
+      },
+      volver(){
+        this.$emit("register", true);
       }
     },
     computed: {
