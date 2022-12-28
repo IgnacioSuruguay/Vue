@@ -98,7 +98,5 @@ import FormPelicula from './FormPelicula.vue';
 </script>
 
 <style scoped>
-  .list-peliculas {
 
-  }
 </style>
