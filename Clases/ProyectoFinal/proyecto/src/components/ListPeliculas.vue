@@ -1,8 +1,11 @@
 <template >
 
   <section class="list-peliculas container">
-    <h1>list-peliculas Component</h1>
-    <table class="table">
+    <div style="display: flex; justify-content: space-between;" class="m-2"> 
+      <h1>list-peliculas</h1>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPeliModal" style="align-self: center;" @click="targetEdit = null" >Nuevo</button>  
+    </div>
+        <table class="table">
         <thead>
           <tr>
             <th>#</th>
@@ -22,7 +25,7 @@
             <td>{{pelicula.idioma}}</td>
             <td>{{pelicula.genero.join("/")}}</td>
             <td><button class="btn btn-danger" @click="EliminarPelicula(pelicula)">Eliminar</button></td>
-            <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPeliModal" @click="EditarPelicula(pelicula)">Editar</button> </td>
+            <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPeliModal" @click="targetEdit= pelicula">Editar</button> </td>
           </tr>
           <tr v-if="list_peliculas == null">
             <td colspan="7">Cargando</td>
@@ -41,17 +44,8 @@
       <!-- Modal -->
       <div class="modal fade modal-lg" id="editPeliModal" tabindex="-1" ref="editPeliModal" aria-labelledby="editPeliModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editPeliModalLabel">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <FormEditPelicula ref="FormEditPelicula" :pelicula="targetEdit" ></FormEditPelicula>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+          <div class="modal-content">            
+            <FormPelicula ref="FormPelicula" :pelicula="targetEdit" ></FormPelicula>
           </div>
         </div>
       </div>      
@@ -64,7 +58,7 @@
 <script lang="js">
 
 import axios from 'axios';
-import FormEditPelicula from './FormEditPelicula.vue';
+import FormPelicula from './FormPelicula.vue';
   export default  {
     name: "list-peliculas",
     props: [],
@@ -94,14 +88,10 @@ import FormEditPelicula from './FormEditPelicula.vue';
                 this.list_peliculas = this.list_peliculas.filter(e => e.id != idToDelete);
             })
                 .catch((err) => { console.error(`${err}`); });
-        },
-        EditarPelicula(el){
-          this.targetEdit = el;
-
         }
     },
     computed: {},
-    components: { FormEditPelicula }
+    components: { FormPelicula }
 }
 
 
