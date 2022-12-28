@@ -1,6 +1,8 @@
 <template>
 	<section class="form-edit-pelicula container">
-		<h1>form-edit-pelicula</h1>
+		<h1 v-if="this.pelicula">Formulario de modificación</h1>
+		<h1 v-else>Formulario de creación</h1>
+
 		<!-- <form action="" method="post" @submit.prevent="submit()" id="form1" class="needs-validation" novalidate> -->
 		<form action="" method="post" @submit.prevent="submit()" id="form1" novalidate>
     <!-- fila 1 -->
@@ -80,7 +82,8 @@
           </div>
         </div>
       </div>
-			<button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Actualizar pelicula</button>
+			<span class="btn btn-secondary m-1" type="submit" data-bs-dismiss="modal">Atras</span>
+			<button class="btn btn-primary m-1" type="submit" data-bs-dismiss="modal">Actualizar</button>
 		</form>
 	</section>
 </template>
@@ -118,12 +121,12 @@ export default  {
   data () {
     return {
       peli_titulo: (this.pelicula) ? this.pelicula.titulo : '' ,
-      peli_anio: '',
-      peli_idioma: '',
-      peli_sinopsis: '',
-      peli_genero:[],
-      peli_precio: "",
-      peli_posterurl:"",
+      peli_anio: (this.pelicula) ? this.pelicula.anio :'',
+      peli_idioma: (this.pelicula) ? this.pelicula.idioma :'',
+      peli_sinopsis: (this.pelicula) ? this.pelicula.sinopsis :'',
+      peli_genero:(this.pelicula) ? this.pelicula.genero : [],
+      peli_precio: (this.pelicula) ? this.pelicula.precio :"",
+      peli_posterurl:(this.pelicula) ? this.pelicula.posterUrl :"",
       list_idiomas:
       [
         "Castellano",
@@ -221,15 +224,27 @@ export default  {
       }
 
       let pelicula = new Pelicula(this.peli_titulo, this.peli_anio, this.peli_idioma, this.peli_sinopsis, this.peli_genero, this.peli_precio, this.peli_posterurl);
-      
-      axios.put("https://639a6077d514150197347436.mockapi.io/cinema/peliculas/"+this.pelicula.id, pelicula)
-      .then((response) =>{
-        console.log("created" + response.data);
-        Object.assign(this.$data, this.$options.data());
-      })
-      .catch((err) => {
-        console.error(`${err}`)
-      }); 
+
+      if(!this.pelicula){
+        axios.post("https://639a6077d514150197347436.mockapi.io/cinema/peliculas", pelicula)
+        .then((response) =>{
+          console.log("created" + response.data);
+          Object.assign(this.$data, this.$options.data());
+        })
+        .catch((err) => {
+          console.error(`${err}`)
+        }); 
+      }
+      else{
+        axios.put("https://639a6077d514150197347436.mockapi.io/cinema/peliculas/"+this.pelicula.id, pelicula)
+        .then((response) =>{
+          console.log("created" + response.data);
+          Object.assign(this.$data, this.$options.data());
+        })
+        .catch((err) => {
+          console.error(`${err}`)
+        });         
+      }
     },
     validacionesTitulo(){},
     validacionesAnio(){
@@ -246,7 +261,8 @@ export default  {
     },
     validacionesPoster(){
       //validacion URL
-      if(! /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(this.peli_posterurl)) {
+      // if(! /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(this.peli_posterurl)) {
+      if(! /^(http(s):\/\/.)[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)$/g.test(this.peli_posterurl)) {
         this.$refs.posterurl.classList.add("is-invalid");
         this.$refs.errorposterurl.innerText="Ingrese un URL valida";
         return;
@@ -259,14 +275,14 @@ export default  {
   watch:{
     pelicula(newData ){
       console.log("prop PELICULA actualiza");
-      this.peli_titulo = newData.titulo;
-      this.peli_anio = newData.anio;
-      this.peli_idioma = newData.idioma;
-      this.peli_sinopsis = newData.sinopsis;
-      this.peli_genero = newData.genero;
-      this.peli_precio = newData.precio;
-      this.peli_posterurl = newData.posterUrl;
-
+      console.log(newData);
+      this.peli_titulo =  (this.pelicula) ? this.pelicula.titulo : '' ;
+      this.peli_anio =  (this.pelicula) ? this.pelicula.anio :'';
+      this.peli_idioma =  (this.pelicula) ? this.pelicula.idioma :'';
+      this.peli_sinopsis =  (this.pelicula) ? this.pelicula.sinopsis :'';
+      this.peli_genero = (this.pelicula) ? this.pelicula.genero :'';
+      this.peli_precio =  (this.pelicula) ? this.pelicula.precio :"";
+      this.peli_posterurl = (this.pelicula) ? this.pelicula.posterUrl :"";
     }
   }
 }
