@@ -22,7 +22,7 @@
             <td>{{pelicula.idioma}}</td>
             <td>{{pelicula.genero.join("/")}}</td>
             <td><button class="btn btn-danger" @click="EliminarPelicula(pelicula)">Eliminar</button></td>
-            <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="EditarPelicula(pelicula)">Editar</button> </td>
+            <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPeliModal" @click="EditarPelicula(pelicula)">Editar</button> </td>
           </tr>
           <tr v-if="list_peliculas == null">
             <td colspan="7">Cargando</td>
@@ -34,16 +34,16 @@
       </table>
       <!-- model edicion -->
       <!-- Button trigger modal -->
-      <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPeliModal">
         Launch demo modal
       </button> -->
 
       <!-- Modal -->
-      <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" ref="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade modal-lg" id="editPeliModal" tabindex="-1" ref="editPeliModal" aria-labelledby="editPeliModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="editPeliModalLabel">Modal title</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <FormEditPelicula ref="FormEditPelicula" :pelicula="targetEdit" ></FormEditPelicula>

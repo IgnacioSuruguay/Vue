@@ -1,22 +1,32 @@
 <template>
 
-  <section class="info-producto container">
-    <h1>info-producto</h1>
-    <div class="card mb-3" style="max-width: 540px;">
+  <section class="m-2">
+    <div class="card" style="border: unset;" >
       <div class="row g-0">
         <div class="col-md-4">
-          <img :src="item.poster" class="img-fluid rounded-start" alt="...">
+          <img :src=" (pelicula) ? pelicula.posterUrl : '' " class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{item.titulo}}</h5>
-            <p class="card-text">{{item.sinopsis}}</p>
-            <p class="card-text"><small class="text-muted">{{item.anio}}. {{item.genero.join(" / ")}}</small></p>
-            <p class="card-text"><small class="text-muted">Costo de alquiler ${{item.precio}}</small></p>
+          <div class="card-body text-start">
+            <h3 class="card-title">{{ (pelicula) ? pelicula.titulo : '' }} </h3>
+            <p class="card-title">{{ (pelicula) ? pelicula.anio : '' }} - {{ (pelicula) ? pelicula.idioma : '' }} </p>
+            <p class="card-text">{{ (pelicula) ? pelicula.genero.join(" / ") : '' }}</p>
+            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
           </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <p class="card-text">{{ (pelicula) ? pelicula.sinopsis : '' }}</p>
+
+            </li>
+            <li class="list-group-item"><strong>${{ (pelicula) ? pelicula.precio : '' }}</strong> </li>
+          </ul>
+          <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary m-1" data-bs-dismiss="modal" @click="carrito()" >Agregar</button>
+
         </div>
       </div>
-    </div>    
+      
+    </div>
   </section>
 
 </template>
@@ -25,26 +35,21 @@
 
   export default  {
     name: 'info-producto',
-    props: [],
+    props: {
+      pelicula: Object
+    },
     mounted () {
 
     },
     data () {
       return {
-        item:{
-            id: 1,
-            titulo : "Terminator",
-            anio : 1984,
-            // poster :"../assets/posters/terminator-1984.jpg",
-            poster: "https://img.yts.mx/assets/images/movies/The_Terminator_1984/medium-cover.jpg",
-            sinopsis : "Un cyborg ha sido enviado desde el futuro en una misión mortal: Eliminar a Sarah Connor, una joven cuya vida tendrá una gran importancia en los próximos años.",
-            genero : ["Ciencia Ficción", "Acción"],
-            precio : 10.0
-          }
+        
       }
     },
     methods: {
-
+      carrito(){
+        this.$emit("agregar", this.pelicula);
+      }
     },
     computed: {
 
