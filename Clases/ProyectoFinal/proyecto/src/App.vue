@@ -3,7 +3,11 @@
     <nav >
       <router-link to="/">Home</router-link> |
       <router-link to="/carrito">Carrito</router-link> |
-      <router-link to="/peliculas" v-if="user && user.esAdmin">ABM Peliculas</router-link> |
+      <span v-if="user && user.esAdmin">
+      <!-- <router-link to="/peliculas" v-if="user && user.esAdmin">ABM Peliculas</router-link> | -->
+      <router-link to="/peliculas" >ABM Peliculas</router-link> |
+      </span>
+      <a href="#" @click="signOut()" >Sign Out</a>
     </nav>
     <router-view/>
   </div>
@@ -45,5 +49,12 @@ export default {
           user: JSON.parse( sessionStorage.getItem("user")) ,
       };
   },
+  methods:{
+    signOut(){
+      this.user = null;
+      sessionStorage.removeItem("user");
+      this.$router.push({path:'/signin'});
+    }
+  }
 }
 </script>
