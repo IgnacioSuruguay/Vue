@@ -8,8 +8,10 @@
           <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
           <p class="card-text">{{pelicula.genero.join(" - ")}}</p>
           <p class="list-group-item">${{pelicula.precio}}</p>
-          <button class="btn btn-secondary" @click="targetDetalle = pelicula " data-bs-toggle="modal" data-bs-target="#detalleModal">Mas Información</button>
-          <button class="btn btn-primary" @click="AgregarAlCarrito(pelicula)">Agregar al carrito</button>
+          <div>
+            <button class="btn btn-secondary m-1" @click="targetDetalle = pelicula " data-bs-toggle="modal" data-bs-target="#detalleModal">Info</button>
+            <button class="btn btn-primary m-1" @click="AgregarAlCarrito(pelicula)">Agregar</button>
+          </div>        
         </div>
       </div>
     </div> 
@@ -103,10 +105,6 @@ import InfoProducto from './InfoProducto.vue';
 </script>
 
 <style scoped>
-  .listado-productos {
-    border: 1px solid lightgrey;
-    border-radius: 10px;
-  }
   .listado-productos ul{
     display: flex;
   }
@@ -115,6 +113,7 @@ import InfoProducto from './InfoProducto.vue';
   }
   .item{
     width: 18rem;
-    margin: 20px 10px;
+    padding-left: 0 ;
+    padding-right: 0 ;
   }
 </style>

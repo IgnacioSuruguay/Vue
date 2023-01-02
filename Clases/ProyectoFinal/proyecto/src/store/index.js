@@ -10,9 +10,12 @@ export default new Vuex.Store({
   getters: {
     getUser(state){
       return state.user;
+    },
+    esAdministrador(state){
+      return (state.user)? state.user.esAdmin : null;
     }
   },
-  //setters. al igual que los getters, son privados
+  //setters.
   mutations: {
     setUser(state, usuario){
       state.user = usuario;

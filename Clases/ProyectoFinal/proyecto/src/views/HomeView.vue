@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Logo" src="../assets/logo.png" style="width: 10em">
     <listado-productos></listado-productos>
   </div>
 </template>
@@ -14,13 +13,11 @@ export default {
     ListadoProductos,
   },
   beforeCreate(){
-    if(!JSON.parse( sessionStorage.getItem("user"))){
-      this.$router.push({path:'/signin'})
-    }
+    this.user = this.$store.getters.getUser;
   },
   data() {
     return {
-      user: JSON.parse( sessionStorage.getItem("user")) ,
+      user:null
     };
   },
   

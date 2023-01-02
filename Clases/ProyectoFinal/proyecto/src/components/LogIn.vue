@@ -25,6 +25,7 @@
 
 <script lang="js">
 
+  import { mapMutations } from 'vuex';
   import axios from 'axios'
   export default  {
     name: 'log-in',
@@ -58,6 +59,7 @@
       }
     },
     methods: {
+      ...mapMutations(['setUser']),
       submit(){
         if(!this.email){
           alert("email vacio");
@@ -74,10 +76,10 @@
         }
         this.user = user;
         sessionStorage.setItem("user", JSON.stringify(user));
+        this.setUser(user);
         alert(`Bienvenido ${user.nombre} ${user.apellido}` );
         this.$router.push({path:'/'})
 
-        
       },
       enviarRegister(){
         this.$emit("register", false);
