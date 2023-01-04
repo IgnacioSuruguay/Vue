@@ -83,7 +83,7 @@ import InfoProducto from './InfoProducto.vue';
             // }
             let item = el;
             item.dias = 1;
-            let storage_carrito = sessionStorage.getItem("carrito");
+            let storage_carrito = localStorage.getItem("carrito");
             if (storage_carrito) {
                 arr_carrito = JSON.parse(storage_carrito);
             }
@@ -94,7 +94,7 @@ import InfoProducto from './InfoProducto.vue';
             else {
                 arr_carrito.push(item);
             }
-            sessionStorage.setItem("carrito", JSON.stringify(arr_carrito));
+            localStorage.setItem("carrito", JSON.stringify(arr_carrito));
         }
     },
     computed: {},

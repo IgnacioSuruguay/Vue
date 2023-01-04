@@ -60,7 +60,7 @@
     },
     data () {
       return {
-        carrito : JSON.parse( sessionStorage.getItem("carrito")) || [],
+        carrito : JSON.parse( localStorage.getItem("carrito")) || [],
         // carrito:[
         //   {
         //     id: 1,
@@ -89,7 +89,7 @@
       Quitar(item){
         let newCarrito = this.carrito.filter((e)=> e.id !== item.id);
         this.carrito = newCarrito;
-        JSON.parse( sessionStorage.setItem("carrito", JSON.stringify(this.carrito)));
+        JSON.parse( localStorage.setItem("carrito", JSON.stringify(this.carrito)));
 
 
       },
@@ -112,7 +112,7 @@
         .then((response) =>{
           console.log("created" + response.data);
           Object.assign(this.$data, this.$options.data());
-          sessionStorage.removeItem("carrito");
+          localStorage.removeItem("carrito");
           this.carrito = [];
         })
         .catch((err) => {

@@ -84,13 +84,13 @@ export default {
   name: "App",
   data() {
       return {
-          user: JSON.parse( sessionStorage.getItem("user")) ,
+          user: JSON.parse( localStorage.getItem("user")) ,
       };
   },
   methods:{
     signOut(){
       this.user = null;
-      sessionStorage.removeItem("user");
+      localStorage.removeItem("user");
       this.$router.push({path:'/signin'});
     }
   }
