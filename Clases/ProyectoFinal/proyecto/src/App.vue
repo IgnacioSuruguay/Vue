@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div >
-      <nav class="navbar navbar-light bg-light" >
-        <div class="logo">
+      <nav class="navbar fixed-top navbar-light bg-light" >
+        <div class="logo" @click="$router.push({path:'/'})">
           <img alt="Logo" src="@/assets/logo.png" style="margin: 0 10px 0 20px ;width: 60px;"/>CINEMA
         </div>
         <ul id="nav-list">
@@ -17,10 +17,13 @@
             </router-link>
           </li>
           <li v-if="$store.getters.esAdministrador">
-            <router-link to="/peliculas" >ABM Peliculas</router-link> |
+            <router-link to="/peliculas" >ABM Peliculas</router-link>
           </li>
           <li>
-            <router-link to="/signin" v-if="!user" class="btn btn-outline-success">Iniciar sesión</router-link>
+            <font-awesome-icon icon="fa-solid fa-user" />
+          </li>
+          <li>
+            <router-link to="/signin" v-if="!$store.getters.getUser" class="btn btn-outline-success">Iniciar sesión</router-link>
             
             <button href="#" v-else class="btn btn-outline-danger" @click="signOut()" >
               <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
@@ -45,8 +48,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; 
+  margin-top: 65px;
 }
-
+.logo:hover{
+  cursor: pointer;
+}
 nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -71,6 +77,7 @@ nav a.router-link-exact-active {
     align-items: center;
     justify-content: center;
     display: flex;
+  cursor: pointer;
 }
 #nav-list li:not(:last-child){
   border-bottom: 2px solid;
@@ -79,19 +86,21 @@ nav a.router-link-exact-active {
 </style>
 <script>
 
+import { mapMutations } from 'vuex';
 export default {
   components: {},
   name: "App",
   data() {
       return {
-          user: JSON.parse( localStorage.getItem("user")) ,
       };
   },
   methods:{
+      ...mapMutations(['setUser']),
     signOut(){
-      this.user = null;
+      this.setUser(null);
       localStorage.removeItem("user");
       this.$router.push({path:'/signin'});
+      // location.reload();
     }
   }
 }

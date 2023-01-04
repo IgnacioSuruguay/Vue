@@ -17,12 +17,13 @@ import {
   faRightFromBracket,
   faHouse
 } from '@fortawesome/free-solid-svg-icons'
-
+import {faUser} from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(
   faCartShopping,
   faRightFromBracket,
-  faHouse)
+  faHouse);
+  library.add(faUser);
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)

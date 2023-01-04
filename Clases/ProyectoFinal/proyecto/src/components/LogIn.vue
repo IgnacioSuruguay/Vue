@@ -74,10 +74,9 @@
           alert("Credenciales incorrectas");
           return;
         }
-        this.user = user;
         localStorage.setItem("user", JSON.stringify(user));
         this.setUser(user);
-        alert(`Bienvenido ${user.nombre} ${user.apellido}` );
+        //alert(`Bienvenido ${user.nombre} ${user.apellido}` );
         this.$router.push({path:'/'})
 
       },

@@ -10,7 +10,7 @@
           <p class="list-group-item">${{pelicula.precio}}</p>
           <div>
             <button class="btn btn-secondary m-1" @click="targetDetalle = pelicula " data-bs-toggle="modal" data-bs-target="#detalleModal">Info</button>
-            <button  v-if="!$store.getters.esAdministrador" class="btn btn-primary m-1" @click="AgregarAlCarrito(pelicula)">Agregar</button>
+            <button  v-if="$store.getters.getUser && !$store.getters.esAdministrador" class="btn btn-primary m-1" @click="AgregarAlCarrito(pelicula)">Agregar</button>
           </div>        
         </div>
       </div>

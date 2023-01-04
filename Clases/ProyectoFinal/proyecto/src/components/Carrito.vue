@@ -26,7 +26,7 @@
           <td><button class="btn btn-secondary"  @click="Quitar(item)" >Quitar</button></td>
         </tr>
         <tr v-if="carrito.length == 0">
-          <td colspan="6">No hay elementos seleccionados</td>
+          <td colspan="7">No hay elementos seleccionados</td>
         </tr>
       </tbody>
       <tfoot  v-if="carrito.length > 0">

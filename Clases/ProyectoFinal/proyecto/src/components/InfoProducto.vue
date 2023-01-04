@@ -21,7 +21,7 @@
             <li class="list-group-item"><strong>${{ (pelicula) ? pelicula.precio : '' }}</strong> </li>
           </ul>
           <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Cerrar</button>
-          <button v-if="!$store.getters.esAdministrador" type="button" class="btn btn-primary m-1" data-bs-dismiss="modal" @click="carrito()" >Agregar</button>
+          <button v-if="$store.getters.getUser && !$store.getters.esAdministrador" type="button" class="btn btn-primary m-1" data-bs-dismiss="modal" @click="carrito()" >Agregar</button>
 
         </div>
       </div>
