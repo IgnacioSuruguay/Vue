@@ -11,7 +11,7 @@
               <font-awesome-icon icon="fa-solid fa-house" /> Inicio
             </router-link>
           </li>
-          <li>
+          <li v-if="$store.getters.getUser && !$store.getters.esAdministrador">
             <router-link to="/carrito">
               <font-awesome-icon icon="fa-solid fa-cart-shopping" /> Carrito
             </router-link>
@@ -19,10 +19,14 @@
           <li v-if="$store.getters.esAdministrador">
             <router-link to="/peliculas" >ABM Peliculas</router-link> |
           </li>
-            <button href="#" class="btn btn-outline-danger" @click="signOut()" >
+          <li>
+            <router-link to="/signin" v-if="!user" class="btn btn-outline-success">Iniciar sesión</router-link>
+            
+            <button href="#" v-else class="btn btn-outline-danger" @click="signOut()" >
               <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
               Sign Out
             </button>
+          </li>            
         </ul>
       </nav>
     </div>
@@ -58,16 +62,18 @@ nav a.router-link-exact-active {
   margin: 0;
   display: inline-flex;
 }
-#nav-list li:hover {
+#nav-list li:hover:not(:last-child) {
     background-color: lightgray;
 }
 #nav-list li{
   margin-right: 10px;
     padding: 5px;
-    border-bottom: 2px solid;
     align-items: center;
     justify-content: center;
     display: flex;
+}
+#nav-list li:not(:last-child){
+  border-bottom: 2px solid;
 }
 
 </style>
