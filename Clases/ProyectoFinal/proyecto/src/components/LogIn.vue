@@ -75,7 +75,7 @@
           return;
         }
         this.user = user;
-        sessionStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
         this.setUser(user);
         alert(`Bienvenido ${user.nombre} ${user.apellido}` );
         this.$router.push({path:'/'})
