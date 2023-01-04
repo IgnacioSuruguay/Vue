@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: JSON.parse( localStorage.getItem("user")),
   },
   getters: {
     getUser(state){
