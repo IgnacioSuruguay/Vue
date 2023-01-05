@@ -1,0 +1,10 @@
+se debe actualizar manualmente algunas dependencial
+
+npm install vue-router@4
+
+ciclo de vida 
+https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram
+
+
+suspense
+https://learnvue.co/tutorials/vue-skeleton-loading
