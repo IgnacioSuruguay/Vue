@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <PrimerComponente></PrimerComponente>
-    </div>
+    <PrimerComponente />
 </template>
 
 <script setup>

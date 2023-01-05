@@ -4,9 +4,8 @@
 <template>
   <div>
     <p>
-      <router-link to="/">Ir a Home</router-link> / 
-      <router-link to="/about">Ir a About</router-link> / 
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Ir a Home</router-link> | 
+      <router-link to="/about">Ir a About</router-link>
     </p>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -16,6 +15,9 @@
     </a>
     <router-view></router-view>
   </div>
+  <teleport to="#teletransporte">
+      <p>Este es un texto teletransportado</p>
+  </teleport>
 </template>
 
 <style scoped>
