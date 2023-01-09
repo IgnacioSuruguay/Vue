@@ -2,7 +2,7 @@
   <section class="listado-productos container">
     <h1>listado</h1>
     <div class="row">
-      <div class="card item col-2 m-2"  v-for="(pelicula, index) in peliculas" :key="index">
+      <div class="card item col-2 m-2"  v-for="(pelicula, index) in getProductos()" :key="index">
         <img :src="pelicula.posterUrl" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title"><strong>{{pelicula.titulo}}</strong></h5>
@@ -14,7 +14,13 @@
           </div>        
         </div>
       </div>
-    </div> 
+      <div v-if=" $store.getters.getProductos == null" class="alert alert-light" role="alert">
+        Cargando ...
+      </div>
+      <div v-else-if="$store.getters.getProductos.length == 0" class="alert alert-light" role="alert">
+        no hay productos cargados en el sistema
+      </div>
+    </div>
       <!-- Modal -->
       <div class="modal fade modal-lg" id="detalleModal" tabindex="-1" ref="detalleModal" aria-labelledby="detalleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -29,51 +35,27 @@
 
 <script lang="js">
   // import {Pelicula} from "../class"
-  import axios from 'axios';
-import InfoProducto from './InfoProducto.vue';
+  import { mapActions, mapGetters } from 'vuex';
+  import InfoProducto from './InfoProducto.vue';
   export default  {
     name: "listado-productos",
     props: [],
-    created() {
-        const peliculasEndPoint = "https://639a6077d514150197347436.mockapi.io/cinema/peliculas";
-        axios.get(peliculasEndPoint)
-            .then((response) => {
-            // console.table(response.data);
-            this.peliculas = response.data;
-        })
-            .catch((err) => { console.error(`${err}`); });
+    created () {
+      console.log("calling getProductosAction");
+      // this.getProductosAction();
+      this.$store.dispatch('getProductosAction')
+      console.log("called getProductosAction");
     },
     mounted() {
     },
     data() {
         return {
-            peliculas: [],
             targetDetalle: null
-            // peliculas:[
-            //   {
-            //     id: 1,
-            //     titulo : "Terminator",
-            //     anio : 1984,
-            //     // poster :"../assets/posters/terminator-1984.jpg",
-            //     poster: "https://img.yts.mx/assets/images/movies/The_Terminator_1984/medium-cover.jpg",
-            //     sinopsis : "Un cyborg ha sido enviado desde el futuro en una misión mortal: Eliminar a Sarah Connor, una joven cuya vida tendrá una gran importancia en los próximos años.",
-            //     genero : ["Ciencia Ficción", "Acción"],
-            //     precio : 10.0
-            //   },
-            //   {
-            //     id: 2,
-            //     titulo : "Volver al futuro",
-            //     anio : 1985,
-            //     // poster :"../assets/posters/backtothefuture-1985.jpg",
-            //     poster: "https://img.yts.mx/assets/images/movies/Back_to_the_Future_1985/medium-cover.jpg",
-            //     sinopsis : "Marty McFly es un adolescente amigo de Doc, un científico a los que todos menos él toman por chiflado. Cuando Doc crea una máquina para viajar en el tiempo en forma de un automóvil deportivo, Marty viaja accidentalmente al año 1955",
-            //     genero : ["Ciencia Ficción"],
-            //     precio : 9.5
-            //   }
-            // ]
         };
     },
     methods: {
+      ...mapActions(['getProductosAction']),
+      ...mapGetters(["getProductos"]),
         AgregarAlCarrito(el) {
             let arr_carrito = [];
             // let item = {
@@ -95,7 +77,7 @@ import InfoProducto from './InfoProducto.vue';
                 arr_carrito.push(item);
             }
             localStorage.setItem("carrito", JSON.stringify(arr_carrito));
-        }
+        }        
     },
     computed: {},
     components: { InfoProducto }
