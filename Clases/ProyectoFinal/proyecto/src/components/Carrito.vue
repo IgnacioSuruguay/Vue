@@ -104,7 +104,7 @@
           });
         });
         let pedido = {
-          user: "user@user.com",
+          user: this.$store.state.user.id,
           peliculas: p,
           costoFinal: this.calcularTotal
         };

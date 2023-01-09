@@ -19,8 +19,11 @@
           <li v-if="$store.getters.esAdministrador">
             <router-link to="/peliculas" >ABM Peliculas</router-link>
           </li>
-          <li>
-            <font-awesome-icon icon="fa-solid fa-user" />
+          <li v-if="$store.getters.esAdministrador">
+            <router-link to="/pedidos" >Pedidos</router-link>
+          </li>
+          <li v-if="$store.getters.getUser">
+            <font-awesome-icon icon="fa-solid fa-user" /> {{ $store.getters.getNombre }}
           </li>
           <li>
             <router-link to="/signin" v-if="!$store.getters.getUser" class="btn btn-outline-success">Iniciar sesión</router-link>
@@ -99,6 +102,8 @@ export default {
     signOut(){
       this.setUser(null);
       localStorage.removeItem("user");
+      localStorage.removeItem("productos");
+      localStorage.removeItem("carrito");
       this.$router.push({path:'/signin'});
       // location.reload();
     }
