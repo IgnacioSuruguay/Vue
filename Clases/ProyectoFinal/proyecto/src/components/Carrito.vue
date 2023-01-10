@@ -61,28 +61,6 @@
     data () {
       return {
         carrito : JSON.parse( localStorage.getItem("carrito")) || [],
-        // carrito:[
-        //   {
-        //     id: 1,
-        //     titulo : "Terminator",
-        //     anio : 1984,
-        //     // poster :"../assets/posters/terminator-1984.jpg",
-        //     poster: "https://img.yts.mx/assets/images/movies/The_Terminator_1984/medium-cover.jpg",
-        //     sinopsis : "Un cyborg ha sido enviado desde el futuro en una misión mortal: Eliminar a Sarah Connor, una joven cuya vida tendrá una gran importancia en los próximos años.",
-        //     genero : ["Ciencia Ficción", "Acción"],
-        //     precio : 10.0
-        //   },
-        //   {
-        //     id: 2,
-        //     titulo : "Volver al futuro",
-        //     anio : 1985,
-        //     // poster :"../assets/posters/backtothefuture-1985.jpg",
-        //     poster: "https://img.yts.mx/assets/images/movies/Back_to_the_Future_1985/medium-cover.jpg",
-        //     sinopsis : "Marty McFly es un adolescente amigo de Doc, un científico a los que todos menos él toman por chiflado. Cuando Doc crea una máquina para viajar en el tiempo en forma de un automóvil deportivo, Marty viaja accidentalmente al año 1955",
-        //     genero : ["Ciencia Ficción"],
-        //     precio : 9.5
-        //   }
-        // ]
       }
     },
     methods: {
@@ -106,7 +84,8 @@
         let pedido = {
           user: this.$store.state.user.id,
           peliculas: p,
-          costoFinal: this.calcularTotal
+          costoFinal: this.calcularTotal,
+          estado: "pendiente"
         };
         axios.post("https://639a6077d514150197347436.mockapi.io/cinema/pedidos", pedido)
         .then((response) =>{

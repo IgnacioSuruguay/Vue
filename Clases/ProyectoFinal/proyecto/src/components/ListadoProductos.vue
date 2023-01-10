@@ -43,7 +43,7 @@
     created () {
       console.log("calling getProductosAction");
       // this.getProductosAction();
-      this.$store.dispatch('getProductosAction')
+      this.$store.dispatch('getProductosAction');
       console.log("called getProductosAction");
     },
     mounted() {

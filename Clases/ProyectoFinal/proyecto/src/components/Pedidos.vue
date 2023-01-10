@@ -7,10 +7,10 @@
       <thead>
         <tr>
           <th>ID Pedido</th>
-          <th>Usuario</th>
+          <th>Usuario ID</th>
           <th>Peliculas</th>
           <th>Total</th>
-          <th>Fecha de ingreso</th>
+          <th>Estado</th>
           <th></th>
         </tr>
       </thead>
@@ -18,10 +18,10 @@
         <tr v-for="(item, index) in getPedidos()" :key="index" >
           <td>{{item.id}}</td>
           <td>{{item.user}}</td>
-          <td>{{item.peliculas.length}}</td>
+          <td>{{item.peliculas.map(e => e.titulo).join(" / ") }}</td>
           <td>${{item.costoFinal}}</td>
-          <td>{{item.fechaPedido}}</td>
-          <td><button class="btn btn-primary" >Entregar</button></td>
+          <td>{{item.estado}}</td>
+          <td><button class="btn btn-primary" @click="entregar(item)" >Entregar</button></td>
         </tr>
         <tr v-if="$store.state.pedidos == null">
           <td colspan="7">Cargando ...</td>
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="js">
-  // import axios from 'axios';
+  import axios from 'axios';
   import { mapActions, mapGetters } from 'vuex';
   export default  {
     name: 'pedidos',
@@ -63,8 +63,33 @@
     methods: {
       ...mapActions(["getPedidosAction"]),
       ...mapGetters(["getPedidos"]),
+      entregar(item){
+        debugger
+        let pedido = {
+          user: item.user,
+          peliculas: item,
+          costoFinal: item.costoFinal,
+          estado: "Entregado"
+        };
+
+        axios.put("https://639a6077d514150197347436.mockapi.io/cinema/pedidos", pedido)
+        .then((response) =>{
+          console.log("updated" + response.data);
+          Object.assign(this.$data, this.$options.data());
+          localStorage.removeItem("carrito");
+          this.carrito = [];
+        })
+        .catch((err) => {
+          console.error(`${err}`)
+        });
+      }
     },
     computed: {
+      obtenerTitulos(arr_peliculas){
+        debugger
+        console.log(arr_peliculas);
+        return "a"
+      }
     }
 }
 

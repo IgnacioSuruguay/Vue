@@ -104,6 +104,7 @@ export default {
       localStorage.removeItem("user");
       localStorage.removeItem("productos");
       localStorage.removeItem("carrito");
+      localStorage.removeItem("pedidos");
       this.$router.push({path:'/signin'});
       // location.reload();
     }
